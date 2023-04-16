@@ -349,8 +349,7 @@ df.head()
 
 ### 범주형 변수 탐색
 
-
-Now, I will explore the categorical variables one by one. 
+이제 범주형 변수를 하나씩 살펴보도록 하겠습니다.
 
 
 ```python
@@ -363,7 +362,7 @@ print('There are {} categorical variables\n'.format(len(categorical)))
 print('The categorical variables are :', categorical)
 ```
 
-We can see that there are 6 categorical variables in the dataset. The `Date` variable has been removed. First, I will check missing values in categorical variables.
+우리는 데이터 세트에 6개의 범주형 변수가 있다는 것을 알 수 있습니다. 날짜 변수가 제거되었습니다. 먼저 범주형 변수의 결측값을 확인하겠습니다.
 
 
 ```python
@@ -372,9 +371,9 @@ We can see that there are 6 categorical variables in the dataset. The `Date` var
 df[categorical].isnull().sum()
 ```
 
-We can see that `WindGustDir`, `WindDir9am`, `WindDir3pm`, `RainToday` variables contain missing values. I will explore these variables one by one.
+Location, WindGustDir, WindDir9am, WindDir3pm, RainToday 변수에 결측값이 포함되어 있음을 알 수 있습니다. 저는 이 변수들을 하나씩 탐색할 것입니다.
 
-### Explore `Location` variable
+### 'Location' 변수 탐색
 
 
 ```python
@@ -406,7 +405,7 @@ df.Location.value_counts()
 pd.get_dummies(df.Location, drop_first=True).head()
 ```
 
-### Explore `WindGustDir` variable
+### 'WindGustDir' 변수 탐색
 
 
 ```python
@@ -449,7 +448,7 @@ pd.get_dummies(df.WindGustDir, drop_first=True, dummy_na=True).sum(axis=0)
 
 We can see that there are 9330 missing values in WindGustDir variable.
 
-### Explore `WindDir9am` variable
+### `WindDir9am` 변수 탐색
 
 
 ```python
@@ -490,9 +489,9 @@ pd.get_dummies(df.WindDir9am, drop_first=True, dummy_na=True).head()
 pd.get_dummies(df.WindDir9am, drop_first=True, dummy_na=True).sum(axis=0)
 ```
 
-We can see that there are 10013 missing values in the `WindDir9am` variable.
+WindDir9am 변수에 결측값이 10013개 있음을 알 수 있습니다.
 
-### Explore `WindDir3pm` variable
+### `WindDir3pm` 변수 탐색
 
 
 ```python
@@ -535,7 +534,7 @@ pd.get_dummies(df.WindDir3pm, drop_first=True, dummy_na=True).sum(axis=0)
 
 There are 3778 missing values in the `WindDir3pm` variable.
 
-### Explore `RainToday` variable
+### `RainToday` 변수탐색
 
 
 ```python
@@ -576,9 +575,9 @@ pd.get_dummies(df.RainToday, drop_first=True, dummy_na=True).head()
 pd.get_dummies(df.RainToday, drop_first=True, dummy_na=True).sum(axis=0)
 ```
 
-There are 1406 missing values in the `RainToday` variable.
+Rain Today 변수에는 1406개의 결측값이 있습니다.
 
-### Explore Numerical Variables
+### 수치 변수 탐색
 
 
 ```python
@@ -598,35 +597,32 @@ print('The numerical variables are :', numerical)
 df[numerical].head()
 ```
 
-### Summary of numerical variables
+### 숫자 변수의 요약
 
 
-- There are 16 numerical variables. 
+- 16개의 숫자 변수가 있습니다.
 
 
-- These are given by `MinTemp`, `MaxTemp`, `Rainfall`, `Evaporation`, `Sunshine`, `WindGustSpeed`, `WindSpeed9am`, `WindSpeed3pm`, `Humidity9am`, `Humidity3pm`, `Pressure9am`, `Pressure3pm`, `Cloud9am`, `Cloud3pm`, `Temp9am` and `Temp3pm`.
+- 이것들은 다음에 의해 주어집니다. `MinTemp`, `MaxTemp`, `Rainfall`, `Evaporation`, `Sunshine`, `WindGustSpeed`, `WindSpeed9am`, `WindSpeed3pm`, `Humidity9am`, `Humidity3pm`, `Pressure9am`, `Pressure3pm`, `Cloud9am`, `Cloud3pm`, `Temp9am`, `Temp3pm`.
 
 
-- All of the numerical variables are of continuous type.
+- 모든 숫자 변수는 연속형입니다.
 
-## Explore problems within numerical variables
+## 수치 변수 내의 문제 탐색
+
+이제 수치 변수를 살펴보겠습니다.
 
 
-Now, I will explore the numerical variables.
-
-
-### Missing values in numerical variables
-
+### 숫자 변수의 결측값
 
 ```python
 # check missing values in numerical variables
 
 df[numerical].isnull().sum()
 ```
+16개의 수치 변수에 결측값이 모두 포함되어 있음을 알 수 있습니다.
 
-We can see that all the 16 numerical variables contain missing values.
-
-### Outliers in numerical variables
+### 숫자 변수의 특이치
 
 
 ```python
@@ -635,10 +631,10 @@ We can see that all the 16 numerical variables contain missing values.
 print(round(df[numerical].describe()),2)
 ```
 
-On closer inspection, we can see that the `Rainfall`, `Evaporation`, `WindSpeed9am` and `WindSpeed3pm` columns may contain outliers.
+자세히 살펴보면, "Rainfall", "Evaporation", "WindSpeed9am", "WindSpeed3pm" 열에 특이치가 포함되어 있을 수 있음을 알 수 있습니다.
 
 
-I will draw boxplots to visualise outliers in the above variables. 
+boxplots을 그려 위 변수의 특이치를 시각화합니다.
 
 
 ```python
@@ -671,12 +667,11 @@ fig.set_title('')
 fig.set_ylabel('WindSpeed3pm')
 ```
 
-The above boxplots confirm that there are lot of outliers in these variables.
+위의 상자 그림은 이러한 변수에 특이치가 많다는 것을 확인합니다.
 
-### Check the distribution of variables
+### 변수 분포 확인
 
-
-Now, I will plot the histograms to check distributions to find out if they are normal or skewed. If the variable follows normal distribution, then I will do `Extreme Value Analysis` otherwise if they are skewed, I will find IQR (Interquantile range).
+이제 히스토그램을 그려 분포가 정규 분포인지 치우쳐 있는지 확인합니다. 변수가 정규 분포를 따르는 경우에는 극단값 분석을 수행하고, 그렇지 않은 경우에는 IQR(InterQuantile Range)을 찾습니다.
 
 
 ```python
@@ -707,9 +702,9 @@ plt.subplot(2, 2, 4)
 fig = df.WindSpeed3pm.hist(bins=10)
 fig.set_xlabel('WindSpeed3pm')
 fig.set_ylabel('RainTomorrow')
-```
 
-We can see that all the four variables are skewed. So, I will use interquantile range to find outliers.
+```
+네 가지 변수가 모두 치우쳐 있음을 알 수 있습니다. 따라서 특이치를 찾기 위해 분위수 범위를 사용합니다.
 
 
 ```python
@@ -722,7 +717,7 @@ print('Rainfall outliers are values < {lowerboundary} or > {upperboundary}'.form
 
 ```
 
-For `Rainfall`, the minimum and maximum values are 0.0 and 371.0. So, the outliers are values > 3.2.
+'Rainfall'의 경우 최소값과 최대값은 0.0과 371.0입니다. 따라서 특이치는 3.2보다 큰 값입니다.
 
 
 ```python
@@ -735,8 +730,7 @@ print('Evaporation outliers are values < {lowerboundary} or > {upperboundary}'.f
 
 ```
 
-For `Evaporation`, the minimum and maximum values are 0.0 and 145.0. So, the outliers are values > 21.8.
-
+증발의 경우 최소값과 최대값은 0.0과 145.0입니다. 따라서 특이치는 21.8보다 큰 값입니다.
 
 ```python
 # find outliers for WindSpeed9am variable
@@ -748,8 +742,7 @@ print('WindSpeed9am outliers are values < {lowerboundary} or > {upperboundary}'.
 
 ```
 
-For `WindSpeed9am`, the minimum and maximum values are 0.0 and 130.0. So, the outliers are values > 55.0.
-
+WindSpeed9am의 경우 최소값과 최대값은 0.0과 130.0입니다. 따라서 특이치는 55.0보다 큰 값입니다.
 
 ```python
 # find outliers for WindSpeed3pm variable
@@ -761,9 +754,10 @@ print('WindSpeed3pm outliers are values < {lowerboundary} or > {upperboundary}'.
 
 ```
 
-For `WindSpeed3pm`, the minimum and maximum values are 0.0 and 87.0. So, the outliers are values > 57.0.
+WindSpeed3am의 경우 최소값과 최대값은 0.0과 87.0입니다. 따라서 특이치는 57.0보다 큰 값입니다.
 
-# **8. Declare feature vector and target variable** <a class="anchor" id="8"></a>
+
+# **8. 피쳐 벡터 및 대상 변수 선언** <a class="anchor" id="8"></a>
 
 
 [Table of Contents](#0.1)
@@ -775,7 +769,7 @@ X = df.drop(['RainTomorrow'], axis=1)
 y = df['RainTomorrow']
 ```
 
-# **9. Split data into separate training and test set** <a class="anchor" id="9"></a>
+# **9. 데이터를 별도의 교육 및 테스트 세트로 분할** <a class="anchor" id="9"></a>
 
 
 [Table of Contents](#0.1)
@@ -797,16 +791,15 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 X_train.shape, X_test.shape
 ```
 
-# **10. Feature Engineering** <a class="anchor" id="10"></a>
+# **10. 피쳐 엔지니어링** <a class="anchor" id="10"></a>
 
 
 [Table of Contents](#0.1)
 
 
-**Feature Engineering** is the process of transforming raw data into useful features that help us to understand our model better and increase its predictive power. I will carry out feature engineering on different types of variables.
+**Feature Engineering**은 원시 데이터를 유용한 기능으로 변환하여 모델을 더 잘 이해하고 예측력을 높이는 과정입니다. 저는 다양한 유형의 변수에 대해 피쳐 엔지니어링을 수행할 것입니다.
 
-
-First, I will display the categorical and numerical variables again separately.
+먼저 범주형 변수와 숫자형 변수를 다시 별도로 표시하겠습니다.
 
 
 ```python
@@ -833,7 +826,7 @@ numerical = [col for col in X_train.columns if X_train[col].dtypes != 'O']
 numerical
 ```
 
-### Engineering missing values in numerical variables
+### 숫자 변수의 결측값 엔지니어링
 
 
 
@@ -860,14 +853,13 @@ for col in numerical:
         print(col, round(X_train[col].isnull().mean(),4))
 ```
 
-### Assumption
+### 가정
 
 
-I assume that the data are missing completely at random (MCAR). There are two methods which can be used to impute missing values. One is mean or median imputation and other one is random sample imputation. When there are outliers in the dataset, we should use median imputation. So, I will use median imputation because median imputation is robust to outliers.
+데이터가 랜덤으로 완전히 누락되었다고 가정합니다(MCAR). 결측값을 귀속시키는 데 사용할 수 있는 두 가지 방법이 있습니다. 하나는 평균 또는 중위수 귀책이고 다른 하나는 랜덤 표본 귀책입니다. 데이터 집합에 특이치가 있을 경우 중위수 귀책을 사용해야 합니다. 중위수 귀인은 특이치에 강하므로 중위수 귀인을 사용합니다.
 
 
-I will impute missing values with the appropriate statistical measures of the data, in this case median. Imputation should be done over the training set, and then propagated to the test set. It means that the statistical measures to be used to fill missing values both in train and test set, should be extracted from the train set only. This is to avoid overfitting.
-
+결측값을 데이터의 적절한 통계적 측도(이 경우 중위수)로 귀속시킵니다. 귀속은 교육 세트에 대해 수행된 다음 테스트 세트에 전파되어야 합니다. 즉, 트레인과 테스트 세트 모두에서 결측값을 채우기 위해 사용되는 통계적 측정값은 트레인 세트에서만 추출되어야 합니다. 이는 과적합을 방지하기 위한 것입니다.
 
 ```python
 # impute missing values in X_train and X_test with respective column median in X_train
@@ -893,9 +885,9 @@ X_train[numerical].isnull().sum()
 X_test[numerical].isnull().sum()
 ```
 
-Now, we can see that there are no missing values in the numerical columns of training and test set.
+이제 훈련 및 테스트 세트의 숫자 열에 결측값이 없음을 알 수 있습니다.
 
-### Engineering missing values in categorical variables
+### 범주형 변수의 결측값 엔지니어링
 
 
 ```python
@@ -954,12 +946,12 @@ X_train.isnull().sum()
 X_test.isnull().sum()
 ```
 
-We can see that there are no missing values in X_train and X_test.
+X_train 및 X_test에서 결측값이 없음을 알 수 있습니다.
 
-### Engineering outliers in numerical variables
+### 숫자 변수의 공학적 특이치
 
 
-We have seen that the `Rainfall`, `Evaporation`, `WindSpeed9am` and `WindSpeed3pm` columns contain outliers. I will use top-coding approach to cap maximum values and remove outliers from the above variables.
+우리는 'Rainfall', 'Evaporation', 'WindSpeed9am', 'WindSpeed3pm' 열에 특이치가 포함되어 있는 것을 보았습니다. 최상위 코드화 방법을 사용하여 최대값을 상한으로 설정하고 위 변수에서 특이치를 제거합니다.
 
 
 ```python
@@ -998,9 +990,9 @@ X_train.WindSpeed3pm.max(), X_test.WindSpeed3pm.max()
 X_train[numerical].describe()
 ```
 
-We can now see that the outliers in `Rainfall`, `Evaporation`, `WindSpeed9am` and `WindSpeed3pm` columns are capped.
+이제 우리는 "Rainfall", "Evapation", "WindSpeed9am", "WindSpeed3pm" 열의 특이치가 상한선임을 알 수 있습니다.
 
-### Encode categorical variables
+### 범주형 변수 인코딩
 
 
 ```python
@@ -1030,9 +1022,9 @@ X_test = encoder.transform(X_test)
 X_train.head()
 ```
 
-We can see that two additional variables `RainToday_0` and `RainToday_1` are created from `RainToday` variable.
+RainToday_0 변수와 RainToday_1 변수가 RainToday 변수에서 추가로 생성됨을 알 수 있습니다.
 
-Now, I will create the `X_train` training set.
+이제 X_train 훈련 세트를 만들겠습니다.
 
 
 ```python
@@ -1048,7 +1040,7 @@ X_train = pd.concat([X_train[numerical], X_train[['RainToday_0', 'RainToday_1']]
 X_train.head()
 ```
 
-Similarly, I will create the `X_test` testing set.
+마찬가지로 'X_test' 테스트 세트를 만들 것입니다.
 
 
 ```python
@@ -1063,10 +1055,9 @@ X_test = pd.concat([X_test[numerical], X_test[['RainToday_0', 'RainToday_1']],
 ```python
 X_test.head()
 ```
+이제 모델 구축을 위한 교육 및 테스트가 준비되었습니다. 그 전에 모든 형상 변수를 동일한 척도에 매핑해야 합니다. 그것은 '기능 확장'이라고 불립니다. 다음과 같이 하겠습니다.
 
-We now have training and testing set ready for model building. Before that, we should map all the feature variables onto the same scale. It is called `feature scaling`. I will do it as follows.
-
-# **11. Feature Scaling** <a class="anchor" id="11"></a>
+# **11. 피쳐 스케일링** <a class="anchor" id="11"></a>
 
 
 [Table of Contents](#0.1)
@@ -1108,9 +1099,9 @@ X_test = pd.DataFrame(X_test, columns=[cols])
 X_train.describe()
 ```
 
-We now have `X_train` dataset ready to be fed into the Logistic Regression classifier. I will do it as follows.
+이제 'X_train' 데이터 세트를 로지스틱 회귀 분류기에 입력할 준비가 되었습니다. 다음과 같이 하겠습니다.
 
-# **12. Model training** <a class="anchor" id="12"></a>
+# **12. 모델닝트레이닝** <a class="anchor" id="12"></a>
 
 
 [Table of Contents](#0.1)
@@ -1130,7 +1121,7 @@ logreg.fit(X_train, y_train)
 
 ```
 
-# **13. Predict results** <a class="anchor" id="13"></a>
+# **13. 예측 결과** <a class="anchor" id="13"></a>
 
 
 [Table of Contents](#0.1)
@@ -1142,12 +1133,11 @@ y_pred_test = logreg.predict(X_test)
 y_pred_test
 ```
 
-### predict_proba method
+### predict_proba 방법
 
+**predict_proba** 메서드는 이 경우 대상 변수(0 및 1)에 대한 확률을 배열 형식으로 제공합니다.
 
-**predict_proba** method gives the probabilities for the target variable(0 and 1) in this case, in array form.
-
-`0 is for probability of no rain` and `1 is for probability of rain.`
+0은 비가 오지 않을 확률이고 1은 비가 올 확률입니다.`
 
 
 ```python
@@ -1163,7 +1153,7 @@ logreg.predict_proba(X_test)[:,0]
 logreg.predict_proba(X_test)[:,1]
 ```
 
-# **14. Check accuracy score** <a class="anchor" id="14"></a>
+# **14. 정확도 점수 확인** <a class="anchor" id="14"></a>
 
 
 [Table of Contents](#0.1)
@@ -1175,13 +1165,12 @@ from sklearn.metrics import accuracy_score
 print('Model accuracy score: {0:0.4f}'. format(accuracy_score(y_test, y_pred_test)))
 ```
 
-Here, **y_test** are the true class labels and **y_pred_test** are the predicted class labels in the test-set.
+정확도 점수 확인여기서 **y_test**는 실제 클래스 레이블이고 **y_pred_test**는 테스트 세트의 예측 클래스 레이블입니다.
 
-### Compare the train-set and test-set accuracy
+### 열차 세트와 테스트 세트 정확도 비교
 
 
-Now, I will compare the train-set and test-set accuracy to check for overfitting.
-
+이제 트레인 세트와 테스트 세트 정확도를 비교하여 과적합 여부를 확인하겠습니다.
 
 ```python
 y_pred_train = logreg.predict(X_train)
@@ -1194,7 +1183,7 @@ y_pred_train
 print('Training-set accuracy score: {0:0.4f}'. format(accuracy_score(y_train, y_pred_train)))
 ```
 
-### Check for overfitting and underfitting
+### 과적합 및 과소적합 여부 점검
 
 
 ```python
@@ -1205,12 +1194,12 @@ print('Training set score: {:.4f}'.format(logreg.score(X_train, y_train)))
 print('Test set score: {:.4f}'.format(logreg.score(X_test, y_test)))
 ```
 
-The training-set accuracy score is 0.8476 while the test-set accuracy to be 0.8501. These two values are quite comparable. So, there is no question of overfitting. 
+과적합 및 과소적합 여부 점검교육 세트 정확도 점수는 0.8476인 반면 테스트 세트 정확도는 0.8501입니다. 이 두 값은 상당히 비슷합니다. 따라서 과적합의 문제는 없습니다. 
 
 
-In Logistic Regression, we use default value of C = 1. It provides good performance with approximately 85% accuracy on both the training and the test set. But the model performance on both the training and test set are very comparable. It is likely the case of underfitting. 
+로지스틱 회귀 분석에서는 C = 1의 기본값을 사용합니다. 교육 및 테스트 세트 모두에서 약 85%의 정확도로 우수한 성능을 제공합니다. 그러나 교육 및 테스트 세트의 모델 성능은 매우 유사합니다. 그것은 아마도 부족한 경우일 것입니다. 
 
-I will increase C and fit a more flexible model.
+저는 C를 늘리고 좀 더 유연한 모델을 맞출 것입니다.
 
 
 ```python
@@ -1233,10 +1222,9 @@ print('Training set score: {:.4f}'.format(logreg100.score(X_train, y_train)))
 print('Test set score: {:.4f}'.format(logreg100.score(X_test, y_test)))
 ```
 
-We can see that, C=100 results in higher test set accuracy and also a slightly increased training set accuracy. So, we can conclude that a more complex model should perform better.
+우리는 C=100이 테스트 세트 정확도를 높이고 교육 세트 정확도를 약간 높인다는 것을 알 수 있습니다. 따라서 더 복잡한 모델이 더 나은 성능을 발휘해야 한다는 결론을 내릴 수 있습니다.
 
-Now, I will investigate, what happens if we use more regularized model than the default value of C=1, by setting C=0.01.
-
+이제 C=0.01을 설정하여 기본값인 C=1보다 정규화된 모델을 사용하면 어떻게 되는지 알아보겠습니다.
 
 ```python
 # fit the Logsitic Regression model with C=001
@@ -1258,15 +1246,13 @@ print('Training set score: {:.4f}'.format(logreg001.score(X_train, y_train)))
 print('Test set score: {:.4f}'.format(logreg001.score(X_test, y_test)))
 ```
 
-So, if we use more regularized model by setting C=0.01, then both the training and test set accuracy decrease relatiev to the default parameters.
+따라서 C=0.01을 설정하여 보다 정규화된 모델을 사용하면 교육 및 테스트 세트 정확도가 기본 매개 변수에 비해 모두 감소합니다.
 
-### Compare model accuracy with null accuracy
+### 모델 정확도와 null 정확도 비교
 
+모형 정확도를 null 정확도와 비교합니다. 따라서 모형 정확도는 0.8501입니다. 그러나 위의 정확도에 근거하여 우리의 모델이 매우 좋다고 말할 수는 없습니다. **null 정확도**와 비교해야 합니다. Null 정확도는 항상 가장 빈도가 높은 클래스를 예측하여 얻을 수 있는 정확도입니다.
 
-So, the model accuracy is 0.8501. But, we cannot say that our model is very good based on the above accuracy. We must compare it with the **null accuracy**. Null accuracy is the accuracy that could be achieved by always predicting the most frequent class.
-
-So, we should first check the class distribution in the test set. 
-
+그래서 우리는 먼저 테스트 세트의 클래스 분포를 확인해야 합니다.
 
 ```python
 # check class distribution in test set
@@ -1274,8 +1260,7 @@ So, we should first check the class distribution in the test set.
 y_test.value_counts()
 ```
 
-We can see that the occurences of most frequent class is 22067. So, we can calculate null accuracy by dividing 22067 by total number of occurences.
-
+우리는 가장 빈번한 수업의 발생 횟수가 22067회임을 알 수 있습니다. 따라서 22067을 총 발생 횟수로 나누어 null 정확도를 계산할 수 있습니다.
 
 ```python
 # check null accuracy score
@@ -1284,46 +1269,43 @@ null_accuracy = (22067/(22067+6372))
 
 print('Null accuracy score: {0:0.4f}'. format(null_accuracy))
 ```
+우리의 모델 정확도 점수는 0.8501이지만 null 정확도 점수는 0.7759임을 알 수 있습니다. 따라서 로지스틱 회귀 분석 모형이 클래스 레이블을 예측하는 데 매우 효과적이라는 결론을 내릴 수 있습니다.
 
-We can see that our model accuracy score is 0.8501 but null accuracy score is 0.7759. So, we can conclude that our Logistic Regression model is doing a very good job in predicting the class labels.
-
-Now, based on the above analysis we can conclude that our classification model accuracy is very good. Our model is doing a very good job in terms of predicting the class labels.
-
-
-But, it does not give the underlying distribution of values. Also, it does not tell anything about the type of errors our classifer is making. 
+이제 위의 분석을 바탕으로 분류 모델 정확도가 매우 우수하다는 결론을 내릴 수 있습니다. 우리 모델은 클래스 레이블을 예측하는 측면에서 매우 잘 수행하고 있습니다.
 
 
-We have another tool called `Confusion matrix` that comes to our rescue.
+그러나 기본적인 값 분포는 제공하지 않습니다. 또한, 그것은 우리 반 학생들이 저지르는 오류의 유형에 대해서는 아무 것도 말해주지 않습니다. 
 
-# **15. Confusion matrix** <a class="anchor" id="15"></a>
+
+우리에게는 행렬 혼돈이라는 또 다른 도구가 있습니다.
+
+# **15. 행렬 혼돈** <a class="anchor" id="15"></a>
 
 
 [Table of Contents](#0.1)
 
 
-A confusion matrix is a tool for summarizing the performance of a classification algorithm. A confusion matrix will give us a clear picture of classification model performance and the types of errors produced by the model. It gives us a summary of correct and incorrect predictions broken down by each category. The summary is represented in a tabular form.
+혼동 행렬은 분류 알고리즘의 성능을 요약하는 도구입니다. 혼동 행렬은 분류 모델 성능과 모델에 의해 생성되는 오류 유형에 대한 명확한 그림을 제공합니다. 각 범주별로 분류된 정확한 예측과 잘못된 예측의 요약을 제공합니다. 요약은 표 형식으로 표시됩니다.
 
 
-Four types of outcomes are possible while evaluating a classification model performance. These four outcomes are described below:-
+분류 모델 성능을 평가하는 동안 네 가지 유형의 결과가 가능합니다. 이 네 가지 결과는 아래에 설명되어 있습니다
 
 
-**True Positives (TP)** – True Positives occur when we predict an observation belongs to a certain class and the observation actually belongs to that class.
+**True Positives(TP)** – 진정한 긍정은 관측치가 특정 클래스에 속하고 관측치가 실제로 해당 클래스에 속한다고 예측할 때 발생합니다.
 
 
-**True Negatives (TN)** – True Negatives occur when we predict an observation does not belong to a certain class and the observation actually does not belong to that class.
+**True Negatives(TN)** – 참 음의 값은 관측치가 특정 클래스에 속하지 않고 실제로 관측치가 해당 클래스에 속하지 않는다고 예측할 때 발생합니다.
 
 
-**False Positives (FP)** – False Positives occur when we predict an observation belongs to a    certain class but the observation actually does not belong to that class. This type of error is called **Type I error.**
-
-
-
-**False Negatives (FN)** – False Negatives occur when we predict an observation does not belong to a certain class but the observation actually belongs to that class. This is a very serious error and it is called **Type II error.**
+**False Positives(FP)** – False Positives는 관측치가 특정 클래스에 속하지만 실제로는 해당 클래스에 속하지 않는다고 예측할 때 발생합니다. 이러한 유형의 오류를 **Type I 오류라고 합니다.**
 
 
 
-These four outcomes are summarized in a confusion matrix given below.
+**False Negatives(FN)** – False Negatives는 관측치가 특정 클래스에 속하지 않지만 실제로는 해당 클래스에 속한다고 예측할 때 발생합니다. 이는 매우 심각한 오류이며 **Type II 오류라고 합니다.**
 
 
+
+이 네 가지 결과는 아래에 제시된 혼동 매트릭스로 요약됩니다.
 
 ```python
 # Print the Confusion Matrix and slice it into four pieces
@@ -1342,11 +1324,10 @@ print('\nFalse Positives(FP) = ', cm[0,1])
 
 print('\nFalse Negatives(FN) = ', cm[1,0])
 ```
+혼동 매트릭스는 '20892 + 3285 = 24177 정확한 예측'과 '3087 + 1175 = 4262 부정확한 예측'을 보여줍니다.
 
-The confusion matrix shows `20892 + 3285 = 24177 correct predictions` and `3087 + 1175 = 4262 incorrect predictions`.
 
-
-In this case, we have
+이 경우, 우리는
 
 
 - `True Positives` (Actual Positive:1 and Predict Positive:1) - 20892
@@ -1370,18 +1351,17 @@ cm_matrix = pd.DataFrame(data=cm, columns=['Actual Positive:1', 'Actual Negative
 sns.heatmap(cm_matrix, annot=True, fmt='d', cmap='YlGnBu')
 ```
 
-# **16. Classification metrices** <a class="anchor" id="16"></a>
+# **16. 분류 메트스스** <a class="anchor" id="16"></a>
 
 
 [Table of Contents](#0.1)
 
-## Classification Report
+## 분류 보고서
 
 
-**Classification report** is another way to evaluate the classification model performance. It displays the  **precision**, **recall**, **f1** and **support** scores for the model. I have described these terms in later.
+**분류 보고서**는 분류 모델의 성능을 평가하는 또 다른 방법입니다. 모델에 대한 **precision**, **recall**, **f1** 및 **support** 점수가 표시됩니다. 저는 이 용어들을 나중에 설명했습니다.
 
-We can print a classification report as follows:-
-
+다음과 같이 분류 보고서를 인쇄할 수 있습니다
 
 ```python
 from sklearn.metrics import classification_report
@@ -1389,7 +1369,7 @@ from sklearn.metrics import classification_report
 print(classification_report(y_test, y_pred_test))
 ```
 
-## Classification accuracy
+## 분류정확도
 
 
 ```python
@@ -1409,7 +1389,7 @@ print('Classification accuracy : {0:0.4f}'.format(classification_accuracy))
 
 ```
 
-## Classification error
+## 분류오류
 
 
 ```python
@@ -1421,18 +1401,17 @@ print('Classification error : {0:0.4f}'.format(classification_error))
 
 ```
 
-## Precision
+## 정밀도
 
 
-**Precision** can be defined as the percentage of correctly predicted positive outcomes out of all the predicted positive outcomes. It can be given as the ratio of true positives (TP) to the sum of true and false positives (TP + FP). 
+**정밀도**는 모든 예측된 긍정적 결과 중 정확하게 예측된 긍정적 결과의 비율로 정의할 수 있습니다. 참 및 거짓 양성의 합계에 대한 참 양성(TP + FP)의 비율로 지정할 수 있습니다. 
 
 
-So, **Precision** identifies the proportion of correctly predicted positive outcome. It is more concerned with the positive class than the negative class.
+따라서 **정밀도**는 정확하게 예측된 양성 결과의 비율을 나타냅니다. 그것은 부정적인 계층보다 긍정적인 계층에 더 관심이 있습니다.
 
 
 
-Mathematically, precision can be defined as the ratio of `TP to (TP + FP).`
-
+수학적으로 정밀도는 'TP 대 (TP + FP)의 비율로 정의할 수 있습니다.`
 
 
 
@@ -1446,18 +1425,17 @@ precision = TP / float(TP + FP)
 print('Precision : {0:0.4f}'.format(precision))
 
 ```
-
 ## Recall
 
 
-Recall can be defined as the percentage of correctly predicted positive outcomes out of all the actual positive outcomes.
-It can be given as the ratio of true positives (TP) to the sum of true positives and false negatives (TP + FN). **Recall** is also called **Sensitivity**.
+리콜은 모든 실제 긍정적 결과 중 정확하게 예측된 긍정적 결과의 비율로 정의할 수 있습니다.
+참 양성과 거짓 음성의 합(TP + FN)에 대한 참 양성(TP)의 비율로 지정할 수 있습니다. **Recall**은(는) **Sensitivity**라고도 합니다.
 
 
-**Recall** identifies the proportion of correctly predicted actual positives.
+**Recall**은 정확하게 예측된 실제 긍정의 비율을 나타냅니다.
 
 
-Mathematically, recall can be given as the ratio of `TP to (TP + FN).`
+수학적으로 리콜은 'TP 대 (TP + FN)의 비율로 지정할 수 있습니다.`
 
 
 
@@ -1473,7 +1451,7 @@ print('Recall or Sensitivity : {0:0.4f}'.format(recall))
 ## True Positive Rate
 
 
-**True Positive Rate** is synonymous with **Recall**.
+**True Positive Rate**은**Recall**과 동의어입니다.
 
 
 
@@ -1494,7 +1472,7 @@ false_positive_rate = FP / float(FP + TN)
 print('False Positive Rate : {0:0.4f}'.format(false_positive_rate))
 ```
 
-## Specificity
+## 특수성
 
 
 ```python
@@ -1615,25 +1593,24 @@ plt.xlabel('Predicted probabilities of rain')
 plt.ylabel('Frequency')
 ```
 
-### Observations
+### 관찰
 
 
-- We can see that the above histogram is highly positive skewed.
+- 위의 히스토그램이 매우 양으로 치우쳐 있음을 알 수 있습니다.
 
 
-- The first column tell us that there are approximately 15000 observations with probability between 0.0 and 0.1.
+- 첫 번째 열은 확률이 0.0과 0.1 사이인 관측치가 약 15,000개임을 나타냅니다.
 
 
-- There are small number of observations with probability > 0.5.
+- 확률이 0.5보다 작은 관측치가 있습니다.
 
 
-- So, these small number of observations predict that there will be rain tomorrow.
+- 그래서 이 소수의 관측치들은 내일 비가 올 것이라고 예측하고 있습니다.
 
 
-- Majority of observations predict that there will be no rain tomorrow.
+- 내일은 비가 오지 않을 것이라는 관측이 대다수입니다.
 
-### Lower the threshold
-
+### 임계값을 낮춥니다
 
 ```python
 from sklearn.preprocessing import binarize
@@ -1668,23 +1645,22 @@ for i in range(1,5):
           
             '====================================================', '\n\n')
 ```
-
-### Comments
-
-
-- In binary problems, the threshold of 0.5 is used by default to convert predicted probabilities into class predictions.
+### 댓글
 
 
-- Threshold can be adjusted to increase sensitivity or specificity. 
+- 이항 문제에서는 예측 확률을 클래스 예측으로 변환하는 데 임계값 0.5가 기본적으로 사용됩니다.
 
 
-- Sensitivity and specificity have an inverse relationship. Increasing one would always decrease the other and vice versa.
+- 임계값을 조정하여 감도 또는 특수성을 높일 수 있습니다. 
 
 
-- We can see that increasing the threshold level results in increased accuracy.
+- 민감도와 특수성은 역관계가 있습니다. 하나를 늘리면 다른 하나는 항상 감소하고 그 반대도 마찬가지입니다.
 
 
-- Adjusting the threshold level should be one of the last step you do in the model-building process.
+- 임계값 레벨을 높이면 정확도가 높아진다는 것을 알 수 있습니다.
+
+
+- 임계값 레벨 조정은 모델 작성 프로세스에서 수행하는 마지막 단계 중 하나여야 합니다.
 
 # **18. ROC - AUC** <a class="anchor" id="18"></a>
 
@@ -1696,25 +1672,25 @@ for i in range(1,5):
 ## ROC Curve
 
 
-Another tool to measure the classification model performance visually is **ROC Curve**. ROC Curve stands for **Receiver Operating Characteristic Curve**. An **ROC Curve** is a plot which shows the performance of a classification model at various 
-classification threshold levels. 
+분류 모델 성능을 시각적으로 측정하는 또 다른 도구는 **ROC Curve**입니다. ROC 곡선은 **Receiver Operating Characteric Curve**의 약자입니다. **ROC Curve**은 다양한 수준에서 분류 모델의 성능을 보여주는 그림입니다 
+분류 임계값 레벨입니다. 
 
 
 
-The **ROC Curve** plots the **True Positive Rate (TPR)** against the **False Positive Rate (FPR)** at various threshold levels.
+**ROC Curve**은 다양한 임계값 레벨에서 **False Positive Rate(FPR)**에 대한 **True Positive Rate(TPR)**를 표시합니다.
 
 
 
-**True Positive Rate (TPR)** is also called **Recall**. It is defined as the ratio of `TP to (TP + FN).`
+**True Positive Rate (TPR)**은 **Recall**이라고도 합니다. 'TP 대 (TP + FN)의 비율로 정의됩니다.`
 
 
 
-**False Positive Rate (FPR)** is defined as the ratio of `FP to (FP + TN).`
+**False Positive Rate(FPR)**는 'FP 대 (FP + TN)의 비율로 정의됩니다.`
 
 
 
 
-In the ROC Curve, we will focus on the TPR (True Positive Rate) and FPR (False Positive Rate) of a single point. This will give us the general performance of the ROC curve which consists of the TPR and FPR at various threshold levels. So, an ROC Curve plots TPR vs FPR at different classification threshold levels. If we lower the threshold levels, it may result in more items being classified as positve. It will increase both True Positives (TP) and False Positives (FP).
+ROC 곡선에서는 단일 지점의 TPR(True Positive Rate)과 FPR(False Positive Rate)에 초점을 맞출 것입니다. 이를 통해 다양한 임계값 레벨에서 TPR과 FPR로 구성된 ROC 곡선의 일반적인 성능을 얻을 수 있습니다. 따라서 ROC 곡선은 여러 분류 임계값 수준에서 TPR 대 FPR을 표시합니다. 임계값 레벨을 낮추면 더 많은 항목이 포지티브로 분류될 수 있습니다. 그러면 True Positives(TP)와 False Positives(FP)가 모두 증가합니다.
 
 
 
@@ -1768,10 +1744,9 @@ print('ROC AUC : {:.4f}'.format(ROC_AUC))
 ### Comments
 
 
-- ROC AUC is a single number summary of classifier performance. The higher the value, the better the classifier.
+- ROC AUC는 분류기 성능의 단일 숫자 요약입니다. 값이 높을수록 분류기가 더 좋습니다.
 
-- ROC AUC of our model approaches towards 1. So, we can conclude that our classifier does a good job in predicting whether it will rain tomorrow or not.
-
+- 우리 모델의 ROCAUC는 1에 접근합니다. 그래서, 우리는 우리의 분류기가 내일 비가 올지 안 올지 예측하는 것을 잘한다는 결론을 내릴 수 있습니다.
 
 ```python
 # calculate cross-validated ROC AUC 
@@ -1798,8 +1773,7 @@ scores = cross_val_score(logreg, X_train, y_train, cv = 5, scoring='accuracy')
 
 print('Cross-validation scores:{}'.format(scores))
 ```
-
-We can summarize the cross-validation accuracy by calculating its mean.
+평균을 계산하여 교차 검증 정확도를 요약할 수 있습니다.
 
 
 ```python
@@ -1859,39 +1833,37 @@ print('GridSearch CV score on test set: {0:0.4f}'.format(grid_search.score(X_tes
 
 ### Comments
 
+- 우리의 원래 모델 테스트 정확도는 0.8501인 반면 그리드 검색 CV 정확도는 0.8507입니다.
 
-- Our original model test accuracy is 0.8501 while GridSearch CV accuracy is 0.8507.
 
-
-- We can see that GridSearch CV improve the performance for this particular model.
-
-# **21. Results and conclusion** <a class="anchor" id="21"></a>
+- 그리드 검색 CV가 이 특정 모델의 성능을 향상시킨다는 것을 알 수 있습니다.
+- 
+# **21. 결과와론결론** <a class="anchor" id="21"></a>
 
 
 [Table of Contents](#0.1)
 
-1.	The logistic regression model accuracy score is 0.8501. So, the model does a very good job in predicting whether or not it will rain tomorrow in Australia.
+1. 로지스틱 회귀 모형 정확도 점수는 0.8501입니다. 그래서, 이 모델은 호주에 내일 비가 올지 안 올지 예측하는 데 매우 좋은 역할을 합니다.
 
-2.	Small number of observations predict that there will be rain tomorrow. Majority of observations predict that there will be no rain tomorrow.
+2. 내일 비가 올 것이라는 관측은 소수입니다. 내일은 비가 오지 않을 것이라는 관측이 대다수입니다.
 
-3.	The model shows no signs of overfitting.
+3. 이 모델은 과적합의 징후가 없습니다.
 
-4.	Increasing the value of C results in higher test set accuracy and also a slightly increased training set accuracy. So, we can conclude that a more complex model should perform better.
+4. C 값을 증가시키면 테스트 세트 정확도가 높아지고 교육 세트 정확도가 약간 증가합니다. 따라서 더 복잡한 모델이 더 나은 성능을 발휘해야 한다는 결론을 내릴 수 있습니다.
 
-5.	Increasing the threshold level results in increased accuracy.
+5. 임계값 레벨을 높이면 정확도가 높아집니다.
 
-6.	ROC AUC of our model approaches towards 1. So, we can conclude that our classifier does a good job in predicting whether it will rain tomorrow or not.
+6. 우리 모델의 ROCAUC는 1에 접근합니다. 그래서, 우리는 우리의 분류기가 내일 비가 올지 안 올지 예측하는 것을 잘한다는 결론을 내릴 수 있습니다.
 
-7.	Our original model accuracy score is 0.8501 whereas accuracy score after RFECV is 0.8500. So, we can obtain approximately similar accuracy but with reduced set of features.
+7. 원래 모델 정확도 점수는 0.8501인 반면 RFECV 이후 정확도 점수는 0.8500입니다. 따라서 기능 집합을 줄이면 거의 유사한 정확도를 얻을 수 있습니다.
 
-8.	In the original model, we have FP = 1175 whereas FP1 = 1174. So, we get approximately same number of false positives. Also, FN = 3087 whereas FN1 = 3091. So, we get slighly higher false negatives.
+8. 원래 모델에서는 FP = 1175인 반면 FP1 = 1174입니다. 그래서 우리는 대략 같은 수의 오검출을 얻습니다. 또한 FN = 3087인 반면 FN1 = 3091입니다. 그래서 우리는 약간 더 높은 거짓 음성을 얻습니다.
 
-9.	Our, original model score is found to be 0.8476. The average cross-validation score is 0.8474. So, we can conclude that cross-validation does not result in performance improvement.
+9. 우리의 원래 모델 점수는 0.8476입니다. 교차 검증 평균 점수는 0.8474입니다. 따라서 교차 검증을 통해 성능이 향상되지 않는다는 결론을 내릴 수 있습니다.
 
-10.	Our original model test accuracy is 0.8501 while GridSearch CV accuracy is 0.8507. We can see that GridSearch CV improve the performance for this particular model.
+10. 당사의 원래 모델 테스트 정확도는 0.8501인 반면 그리드 검색 CV 정확도는 0.8507입니다. 그리드 검색 CV가 이 특정 모델의 성능을 향상시킨다는 것을 알 수 있습니다.
 
-
-# **22. References** <a class="anchor" id="22"></a>
+# **22. 리퍼런스** <a class="anchor" id="22"></a>
 
 
 [Table of Contents](#0.1)
