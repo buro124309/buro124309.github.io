@@ -446,7 +446,7 @@ pd.get_dummies(df.WindGustDir, drop_first=True, dummy_na=True).head()
 pd.get_dummies(df.WindGustDir, drop_first=True, dummy_na=True).sum(axis=0)
 ```
 
-We can see that there are 9330 missing values in WindGustDir variable.
+WindGustDir 변수에는 9330개의 결측값이 있음을 알 수 있습니다.
 
 ### `WindDir9am` 변수 탐색
 
@@ -531,8 +531,7 @@ pd.get_dummies(df.WindDir3pm, drop_first=True, dummy_na=True).head()
 
 pd.get_dummies(df.WindDir3pm, drop_first=True, dummy_na=True).sum(axis=0)
 ```
-
-There are 3778 missing values in the `WindDir3pm` variable.
+WindDir3pm 변수에는 3778개의 결측값이 있습니다.
 
 ### `RainToday` 변수탐색
 
@@ -930,7 +929,7 @@ X_train[categorical].isnull().sum()
 X_test[categorical].isnull().sum()
 ```
 
-As a final check, I will check for missing values in X_train and X_test.
+마지막으로 X_train과 X_test에서 결측값을 확인하겠습니다.
 
 
 ```python
@@ -1718,15 +1717,14 @@ plt.show()
 
 ```
 
-ROC curve help us to choose a threshold level that balances sensitivity and specificity for a particular context.
+ROC 곡선은 특정 컨텍스트에 대한 민감도와 특수성의 균형을 맞추는 임계값 레벨을 선택하는 데 도움이 됩니다.
 
 ## ROC-AUC
 
+ROCAUC는 수신기 작동 특성 - 곡선 아래 영역을 나타냅니다. 분류기 성능을 비교하는 기술입니다. 이 기술에서 우리는 곡선 아래의 면적을 측정합니다. 완벽한 분류기는 ROC AUC가 1인 반면, 순수한 무작위 분류기는 ROC AUC가 0.5입니다.
 
-**ROC AUC** stands for **Receiver Operating Characteristic - Area Under Curve**. It is a technique to compare classifier performance. In this technique, we measure the `area under the curve (AUC)`. A perfect classifier will have a ROC AUC equal to 1, whereas a purely random classifier will have a ROC AUC equal to 0.5. 
 
-
-So, **ROC AUC** is the percentage of the ROC plot that is underneath the curve.
+즉, ROCAUC는 곡선 아래에 있는 ROC 그림의 백분율입니다.
 
 
 ```python
@@ -1780,7 +1778,7 @@ print('Cross-validation scores:{}'.format(scores))
 print('Average cross-validation score: {:.4f}'.format(scores.mean()))
 ```
 
-Our, original model score is found to be 0.8476. The average cross-validation score is 0.8474. So, we can conclude that cross-validation does not result in performance improvement.
+우리의 원래 모델 점수는 0.8476입니다. 교차 검증 평균 점수는 0.8474입니다. 따라서 교차 검증을 통해 성능이 향상되지 않는다는 결론을 내릴 수 있습니다.
 
 # **20. Hyperparameter Optimization using GridSearch CV** <a class="anchor" id="20"></a>
 
