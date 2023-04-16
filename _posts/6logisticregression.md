@@ -1484,18 +1484,17 @@ print('Specificity : {0:0.4f}'.format(specificity))
 ## f1-score
 
 
-**f1-score** is the weighted harmonic mean of precision and recall. The best possible **f1-score** would be 1.0 and the worst 
-would be 0.0.  **f1-score** is the harmonic mean of precision and recall. So, **f1-score** is always lower than accuracy measures as they embed precision and recall into their computation. The weighted average of `f1-score` should be used to 
-compare classifier models, not global accuracy.
-
+**f1-score**는 정밀도와 호출의 가중 조화 평균입니다. 가능한 가장 좋은 **f1-score**는 1.0이고 가장 나쁜 *f1-score**입니다 
+0.0이 됩니다. **f1-score**는 정밀도와 호출의 조화 평균입니다. 따라서 **f1-score**는 정확도와 리콜을 계산에 포함시키기 때문에 항상 정확도 측도보다 낮습니다. "f1-score"의 가중 평균은 다음과 같이 사용되어야 합니다 
+전역 정확도가 아닌 분류기 모델을 비교합니다.
 
 
 ## Support
 
 
-**Support** is the actual number of occurrences of the class in our dataset.
+**Support** 은 데이터 집합에서 클래스의 실제 발생 횟수입니다.
 
-# **17. Adjusting the threshold level** <a class="anchor" id="17"></a>
+# **17. 임계값 레벨 조정** <a class="anchor" id="17"></a>
 
 
 [Table of Contents](#0.1)
@@ -1509,39 +1508,38 @@ y_pred_prob = logreg.predict_proba(X_test)[0:10]
 y_pred_prob
 ```
 
-### Observations
+### 관찰
 
 
-- In each row, the numbers sum to 1.
+- 각 행에서 숫자는 1이 됩니다.
 
 
-- There are 2 columns which correspond to 2 classes - 0 and 1.
+- 2개의 클래스(0 및 1)에 해당하는 2개의 열이 있습니다.
 
-    - Class 0 - predicted probability that there is no rain tomorrow.    
+    - 클래스 0 - 내일 비가 오지 않을 확률을 예측합니다.    
     
-    - Class 1 - predicted probability that there is rain tomorrow.
+    - 클래스 1 - 내일 비가 올 확률을 예측합니다.
         
     
-- Importance of predicted probabilities
+- 예측 확률의 중요성
 
-    - We can rank the observations by probability of rain or no rain.
+    - 비가 오거나 오지 않을 확률로 관측치의 순위를 매길 수 있습니다.
 
 
-- predict_proba process
+- predict_proba 공정
 
-    - Predicts the probabilities    
+    - 확률을 예측합니다    
     
-    - Choose the class with the highest probability    
+    - 확률이 가장 높은 클래스 선택    
     
     
-- Classification threshold level
+- 분류 임계값 레벨
 
-    - There is a classification threshold level of 0.5.    
+    - 분류 임계값 레벨은 0.5입니다.    
     
-    - Class 1 - probability of rain is predicted if probability > 0.5.    
+    - 클래스 1 - 확률이 0.5 이상일 경우 비가 올 확률이 예측됩니다.    
     
-    - Class 0 - probability of no rain is predicted if probability < 0.5.    
-    
+    - 클래스 0 - 확률이 0.5 미만일 경우 비가 오지 않을 확률이 예측됩니다.
 
 
 
@@ -1838,7 +1836,7 @@ print('GridSearch CV score on test set: {0:0.4f}'.format(grid_search.score(X_tes
 
 - 그리드 검색 CV가 이 특정 모델의 성능을 향상시킨다는 것을 알 수 있습니다.
 - 
-# **21. 결과와론결론** <a class="anchor" id="21"></a>
+# **21. 결과와 결론** <a class="anchor" id="21"></a>
 
 
 [Table of Contents](#0.1)
