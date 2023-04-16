@@ -1,41 +1,4 @@
-**As always, I hope you find this kernel useful and your <font color="red"><b>UPVOTES</b></font> would be highly appreciated**.
-
-
-<a class="anchor" id="0"></a>
-# **Logistic Regression Classifier Tutorial with Python**
-
-
-Hello friends,
-
-
-In this kernel, I implement Logistic Regression with Python and Scikit-Learn. I build a Logistic Regression classifier to predict whether or not it will rain tomorrow in Australia. I train a binary classification model using Logistic Regression. 
-
-<a class="anchor" id="0.1"></a>
-# **Table of Contents**
-
-
-1.	[Introduction to Logistic Regression](#1)
-2.	[Logistic Regression intuition](#2)
-3.	[Assumptions of Logistic Regression](#3)
-4.	[Types of Logistic Regression](#4)
-5.	[Import libraries](#5)
-6.	[Import dataset](#6)
-7.	[Exploratory data analysis](#7)
-8.	[Declare feature vector and target variable](#8)
-9.	[Split data into separate training and test set](#9)
-10.	[Feature engineering](#10)
-11.	[Feature scaling](#11)
-12.	[Model training](#12)
-13.	[Predict results](#13)
-14.	[Check accuracy score](#14)
-15.	[Confusion matrix](#15)
-16.	[Classification metrices](#16)
-17.	[Adjusting the threshold level](#17)
-18.	[ROC - AUC](#18)
-19.	[k-Fold Cross Validation](#19)
-20.	[Hyperparameter optimization using GridSearch CV](#20)
-21.	[Results and conclusion](#21)
-22. [References](#22)
+# **로지스틱 회귀 분석얼튜토리얼**
 
 
 # **1. Introduction to Logistic Regression** <a class="anchor" id="1"></a>
