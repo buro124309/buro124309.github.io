@@ -1,121 +1,86 @@
-# **로지스틱 회귀 분석얼튜토리얼**
+# **로지스틱 회귀 분석 튜토리얼**
 
 
-# **1. Introduction to Logistic Regression** <a class="anchor" id="1"></a>
-
-
-[Table of Contents](#0.1)
-
-
-When data scientists may come across a new classification problem, the first algorithm that may come across their mind is **Logistic Regression**. It is a supervised learning classification algorithm which is used to predict observations to a discrete set of classes. Practically, it is used to classify observations into different categories. Hence, its output is discrete in nature. **Logistic Regression** is also called **Logit Regression**. It is one of the most simple, straightforward and versatile classification algorithms which is used to solve classification problems.
-
-# **2. Logistic Regression intuition** <a class="anchor" id="2"></a>
+# **1. 로지스틱 회귀 분석 소개** <a class="anchor" id="1"></a>
 
 
 [Table of Contents](#0.1)
 
 
-In statistics, the **Logistic Regression model** is a widely used statistical model which is primarily used for classification purposes. It means that given a set of observations, Logistic Regression algorithm helps us to classify these observations into two or more discrete classes. So, the target variable is discrete in nature.
+데이터 과학자들이 새로운 분류 문제를 발견할 수 있는 경우, 가장 먼저 떠오르는 알고리즘은 로지스틱 회귀 분석입니다. 개별 클래스 집합에 대한 관찰을 예측하는 데 사용되는 지도 학습 분류 알고리즘입니다. 실제로 관측치를 여러 범주로 분류하는 데 사용됩니다. 따라서, 그것의 출력은 본질적으로 별개입니다. 로지스틱 회귀 분석을 로짓 회귀 분석이라고도 합니다. 분류 문제를 해결하는 데 사용되는 가장 단순하고 간단하며 다용도의 분류 알고리즘 중 하나입니다.
+
+# **2. 로지스틱 회귀 직관** <a class="anchor" id="2"></a>
 
 
-The Logistic Regression algorithm works as follows -
+[Table of Contents](#0.1)
+
+
+통계학에서 로지스틱 회귀 모형은 주로 분류 목적으로 사용되는 널리 사용되는 통계 모형입니다. 즉, 관측치 집합이 주어지면 로지스틱 회귀 알고리즘을 사용하여 관측치를 두 개 이상의 이산 클래스로 분류할 수 있습니다. 따라서 대상 변수는 본질적으로 이산적입니다. 로지스틱 회귀 분석 알고리즘은 다음과 같이 작동합니다.
+
+
 
 ## **Implement linear equation**
 
 
-Logistic Regression algorithm works by implementing a linear equation with independent or explanatory variables to predict a response value. For example, we consider the example of number of hours studied and probability of passing the exam. Here, number of hours studied is the explanatory variable and it is denoted by x1. Probability of passing the exam is the response or target variable and it is denoted by z.
+로지스틱 회귀 분석 알고리즘은 반응 값을 예측하기 위해 독립 변수 또는 설명 변수가 있는 선형 방정식을 구현하는 방식으로 작동합니다. 예를 들어, 우리는 공부한 시간의 수와 시험에 합격할 확률의 예를 고려합니다. 여기서 연구된 시간 수는 설명 변수이며 x1로 표시됩니다. 합격 확률은 반응 변수 또는 목표 변수이며 z로 표시됩니다. 만약 우리가 하나의 설명 변수(x1)와 하나의 반응 변수(z)를 가지고 있다면, 선형 방정식은 다음과 같은 방정식으로 수학적으로 주어질 것입니다.
 
-
-If we have one explanatory variable (x1) and one response variable (z), then the linear equation would be given mathematically with the following equation-
 
     z = β0 + β1x1    
 
-Here, the coefficients β0 and β1 are the parameters of the model.
-
-
-If there are multiple explanatory variables, then the above equation can be extended to
+여기서 계수 β0과 β1은 모형의 모수입니다. 설명 변수가 여러 개인 경우, 위의 방정식은 다음과 같이 확장될 수 있습니다
 
     z = β0 + β1x1+ β2x2+……..+ βnxn
     
-Here, the coefficients β0, β1, β2 and βn are the parameters of the model.
+여기서 계수 β0, β1, β2 및 βn은 모델의 매개변수입니다. 따라서 예측 반응 값은 위의 방정식에 의해 주어지며 z로 표시됩니다.
 
-So, the predicted response value is given by the above equations and is denoted by z.
+## **시그모이드 함수**
 
-## **Sigmoid Function**
-
-This predicted response value, denoted by z is then converted into a probability value that lie between 0 and 1. We use the sigmoid function in order to map predicted values to probability values. This sigmoid function then maps any real value into a probability value between 0 and 1.
-
-In machine learning, sigmoid function is used to map predictions to probabilities. The sigmoid function has an S shaped curve. It is also called sigmoid curve.
-
-A Sigmoid function is a special case of the Logistic function. It is given by the following mathematical formula.
-
-Graphically, we can represent sigmoid function with the following graph.
-
-### Sigmoid Function
+z로 표시된 이 예측 반응 값은 0과 1 사이에 있는 확률 값으로 변환됩니다. 우리는 예측 값을 확률 값에 매핑하기 위해 시그모이드 함수를 사용합니다. 그런 다음 이 시그모이드 함수는 실제 값을 0과 1 사이의 확률 값으로 매핑합니다. 기계 학습에서 시그모이드 함수는 예측을 확률에 매핑하는 데 사용됩니다. 시그모이드 함수는 S자형 곡선을 가지고 있습니다. 그것은 시그모이드 곡선이라고도 불립니다. Sigmoid 함수는 로지스틱 함수의 특수한 경우입니다. 그것은 다음과 같은 수학 공식에 의해 주어집니다. 다음 그래프로 시그모이드 함수를 표현할 수 있습니다.
 
 ![Sigmoid Function](https://miro.medium.com/max/970/1*Xu7B5y9gp0iL5ooBj7LtWw.png)
 
 ## **Decision boundary**
 
-The sigmoid function returns a probability value between 0 and 1. This probability value is then mapped to a discrete class which is either “0” or “1”. In order to map this probability value to a discrete class (pass/fail, yes/no, true/false), we select a threshold value. This threshold value is called Decision boundary. Above this threshold value, we will map the probability values into class 1 and below which we will map values into class 0.
-
-Mathematically, it can be expressed as follows:-
+시그모이드 함수는 0과 1 사이의 확률 값을 반환합니다. 그런 다음 이 확률 값은 "0" 또는 "1"인 이산 클래스에 매핑됩니다. 이 확률 값을 이산 클래스(통과/실패, 예/아니오, 참/거짓)에 매핑하기 위해 임계값을 선택합니다. 이 임계값을 Decision boundary라고 합니다. 이 임계값을 초과하면 확률 값을 클래스 1에 매핑하고 클래스 0에 매핑합니다.
+수학적으로 다음과 같이 표현할 수 있습니다
 
 p ≥ 0.5 => class = 1
 
 p < 0.5 => class = 0 
 
-Generally, the decision boundary is set to 0.5. So, if the probability value is 0.8 (> 0.5), we will map this observation to class 1. Similarly, if the probability value is 0.2 (< 0.5), we will map this observation to class 0. This is represented in the graph below-
+일반적으로 Decision boundary는 0.5로 설정됩니다. 따라서 확률 값이 0.8(> 0.5)이면 이 관측치를 클래스 1에 매핑합니다. 마찬가지로 확률 값이 0.2(< 0.5)이면 이 관측치를 클래스 0에 매핑합니다. 이것은 아래 그래프에 나와 있습니다.
 
 ![Decision boundary in sigmoid function](https://ml-cheatsheet.readthedocs.io/en/latest/_images/logistic_regression_sigmoid_w_threshold.png)
 
-## **Making predictions**
+## **예측하기**
 
-Now, we know about sigmoid function and decision boundary in logistic regression. We can use our knowledge of sigmoid function and decision boundary to write a prediction function. A prediction function in logistic regression returns the probability of the observation being positive, Yes or True. We call this as class 1 and it is denoted by P(class = 1). If the probability inches closer to one, then we will be more confident about our model that the observation is in class 1, otherwise it is in class 0.
-
-
-# **3. Assumptions of Logistic Regression** <a class="anchor" id="3"></a>
+이제 우리는 로지스틱 회귀 분석에서 시그모이드 함수와 결정 경계에 대해 알고 있습니다. 우리는 시그모이드 함수와 결정 경계에 대한 지식을 사용하여 예측 함수를 작성할 수 있습니다. 로지스틱 회귀 분석의 예측 함수는 관측치가 양수, 예 또는 참일 확률을 반환합니다. 이를 클래스 1이라고 하며 P(클래스 = 1)로 표시합니다. 확률이 1에 가까우면 관측치가 클래스 1에 있고 그렇지 않으면 클래스 0에 있다는 것을 모형에 대해 더 확신할 수 있습니다.
 
 
-[Table of Contents](#0.1)
-
-
-The Logistic Regression model requires several key assumptions. These are as follows:-
-
-1. Logistic Regression model requires the dependent variable to be binary, multinomial or ordinal in nature.
-
-2. It requires the observations to be independent of each other. So, the observations should not come from repeated measurements.
-
-3. Logistic Regression algorithm requires little or no multicollinearity among the independent variables. It means that the independent variables should not be too highly correlated with each other.
-
-4. Logistic Regression model assumes linearity of independent variables and log odds.
-
-5. The success of Logistic Regression model depends on the sample sizes. Typically, it requires a large sample size to achieve the high accuracy.
-
-# **4. Types of Logistic Regression** <a class="anchor" id="4"></a>
+# **3. 로지스틱 회귀 분석의 가정** <a class="anchor" id="3"></a>
 
 
 [Table of Contents](#0.1)
 
 
-Logistic Regression model can be classified into three groups based on the target variable categories. These three groups are described below:-
+로지스틱 회귀 분석 모형에는 몇 가지 주요 가정이 필요합니다. 다음과 같습니다. 로지스틱 회귀 분석 모형에서는 종속 변수가 이항, 다항식 또는 순서형이어야 합니다. 관측치가 서로 독립적이어야 합니다. 따라서 관측치는 반복적인 측정에서 나와서는 안 됩니다. 로지스틱 회귀 분석 알고리즘에는 독립 변수 간의 다중 공선성이 거의 또는 전혀 필요하지 않습니다. 즉, 독립 변수들이 서로 너무 높은 상관 관계를 맺어서는 안 됩니다. 로지스틱 회귀 모형은 독립 변수와 로그 승산의 선형성을 가정합니다. 로지스틱 회귀 분석 모형의 성공 여부는 표본 크기에 따라 달라집니다. 일반적으로 높은 정확도를 얻으려면 큰 표본 크기가 필요합니다.
 
-### 1. Binary Logistic Regression
-
-In Binary Logistic Regression, the target variable has two possible categories. The common examples of categories are yes or no, good or bad, true or false, spam or no spam and pass or fail.
+# **4. 로지스틱 회귀 분석의 유형** <a class="anchor" id="4"></a>
 
 
-### 2. Multinomial Logistic Regression
-
-In Multinomial Logistic Regression, the target variable has three or more categories which are not in any particular order. So, there are three or more nominal categories. The examples include the type of categories of fruits - apple, mango, orange and banana.
+[Table of Contents](#0.1)
 
 
-### 3. Ordinal Logistic Regression
+로지스틱 회귀 분석 모형은 대상 변수 범주를 기준으로 세 그룹으로 분류할 수 있습니다. 이 세 그룹은 아래에 설명되어 있습니다.
 
-In Ordinal Logistic Regression, the target variable has three or more ordinal categories. So, there is intrinsic order involved with the categories. For example, the student performance can be categorized as poor, average, good and excellent.
+이항 로지스틱 회귀 분석: 이항 로지스틱 회귀 분석에서 대상 변수에는 두 가지 범주가 있습니다. 범주의 일반적인 예는 예 또는 아니오, 양호 또는 불량, 참 또는 거짓, 스팸 또는 스팸 없음, 통과 또는 실패입니다.
+
+다항 로지스틱 회귀 분석: 다항 로지스틱 회귀 분석에서 대상 변수에는 특정 순서가 아닌 세 개 이상의 범주가 있습니다. 따라서 세 개 이상의 공칭 범주가 있습니다. 그 예들은 사과, 망고, 오렌지 그리고 바나나와 같은 과일의 종류를 포함합니다.
+
+순서형 로지스틱 회귀 분석: 순서형 로지스틱 회귀 분석에서 대상 변수에는 세 개 이상의 순서형 범주가 있습니다. 그래서, 범주와 관련된 본질적인 순서가 있습니다. 예를 들어, 학생들의 성적은 불량, 평균, 양호, 우수로 분류될 수 있습니다.
 
 
-# **5. Import libraries** <a class="anchor" id="5"></a>
+# **5. 라이브러리 가져오기** <a class="anchor" id="5"></a>
 
 
 [Table of Contents](#0.1)
@@ -151,7 +116,7 @@ import warnings
 warnings.filterwarnings('ignore')
 ```
 
-# **6. Import dataset** <a class="anchor" id="6"></a>
+# **6. 데이터셋 가져오기** <a class="anchor" id="6"></a>
 
 
 [Table of Contents](#0.1)
@@ -163,13 +128,13 @@ data = '/kaggle/input/weather-dataset-rattle-package/weatherAUS.csv'
 df = pd.read_csv(data)
 ```
 
-# **7. Exploratory data analysis** <a class="anchor" id="7"></a>
+# **7. 1. 탐색적 데이터 분석** <a class="anchor" id="7"></a>
 
 
 [Table of Contents](#0.1)
 
 
-Now, I will explore the data to gain insights about the data. 
+이제 데이터에 대한 통찰력을 얻기 위해 데이터를 탐색하겠습니다. 
 
 
 ```python
@@ -178,7 +143,7 @@ Now, I will explore the data to gain insights about the data.
 df.shape
 ```
 
-We can see that there are 142193 instances and 24 variables in the data set.
+우리는 데이터 세트에 142193개의 인스턴스와 24개의 변수가 있음을 알 수 있습니다.
 
 
 ```python
@@ -194,10 +159,9 @@ col_names = df.columns
 col_names
 ```
 
-### Drop  RISK_MM variable
+### RISK_MM 변수 삭제
 
-It is given in the dataset description, that we should drop the `RISK_MM` feature variable from the dataset description. So, we 
-should drop it as follows-
+데이터 세트 설명에서 RISK_MM 기능 변수를 삭제해야 한다는 내용이 데이터 세트 설명에 나와 있습니다. 그래서, 우리는 다음과 같이 그것을 없애야 합니다.
 
 
 ```python
@@ -211,13 +175,11 @@ df.drop(['RISK_MM'], axis=1, inplace=True)
 df.info()
 ```
 
-### Types of variables
+### 변수 유형
 
 
-In this section, I segregate the dataset into categorical and numerical variables. There are a mixture of categorical and numerical variables in the dataset. Categorical variables have data type object. Numerical variables have data type float64.
-
-
-First of all, I will find categorical variables.
+이 섹션에서는 데이터 세트를 범주형 변수와 숫자 변수로 분리합니다. 데이터 집합에는 범주형 변수와 숫자 변수가 혼합되어 있습니다. 범주형 변수에는 데이터 유형 개체가 있습니다. 숫자 변수의 데이터 유형은 float64입니다.
+우선 범주형 변수를 찾아보겠습니다.
 
 
 ```python
@@ -237,28 +199,27 @@ print('The categorical variables are :', categorical)
 df[categorical].head()
 ```
 
-### Summary of categorical variables
+### 범주형 변수 요약
 
 
-- There is a date variable. It is denoted by `Date` column.
+- 날짜 변수가 있습니다. 날짜 열로 표시됩니다.
 
 
-- There are 6 categorical variables. These are given by `Location`, `WindGustDir`, `WindDir9am`, `WindDir3pm`, `RainToday` and  `RainTomorrow`.
+- 6개의 범주형 변수가 있습니다. `Location`, `WindGustDir`, `WindDir9am`, `WindDir3pm`, `RainToday` and  `RainTomorrow`.
 
 
-- There are two binary categorical variables - `RainToday` and  `RainTomorrow`.
+- 두 개의 이항 범주형 변수가 있습니다 - `RainToday` 와  `RainTomorrow`.
 
 
-- `RainTomorrow` is the target variable.
+- `RainTomorrow` 는 대상 변수입니다.
 
-## Explore problems within categorical variables
-
-
-First, I will explore the categorical variables.
+## 범주형 변수 내의 문제 탐색
 
 
-### Missing values in categorical variables
+먼저 범주형 변수에 대해 알아보겠습니다.
 
+
+### 범주형 변수의 결측값
 
 ```python
 # check missing values in categorical variables
@@ -275,12 +236,12 @@ cat1 = [var for var in categorical if df[var].isnull().sum()!=0]
 print(df[cat1].isnull().sum())
 ```
 
-We can see that there are only 4 categorical variables in the dataset which contains missing values. These are `WindGustDir`, `WindDir9am`, `WindDir3pm` and `RainToday`.
+데이터 세트에 결측값이 포함된 범주형 변수는 4개뿐임을 알 수 있습니다. `WindGustDir`, `WindDir9am`, `WindDir3pm`, `RainToday`.
 
-### Frequency counts of categorical variables
+### 범주형 변수의 빈도 카운트
 
 
-Now, I will check the frequency counts of categorical variables.
+이제 범주형 변수의 빈도 수를 확인하겠습니다.
 
 
 ```python
@@ -300,11 +261,11 @@ for var in categorical:
     print(df[var].value_counts()/np.float(len(df)))
 ```
 
-### Number of labels: cardinality
+### 레이블 수: cardinality
 
 
-The number of labels within a categorical variable is known as **cardinality**. A high number of labels within a variable is known as **high cardinality**. High cardinality may pose some serious problems in the machine learning model. So, I will check for high cardinality.
 
+범주형 변수 내의 레이블 수는 **cardinality**라고 합니다. 변수 내의 레이블 수가 많은 경우를 **high cardinality**라고 합니다. 높은 카디널리티는 기계 학습 모델에서 몇 가지 심각한 문제를 일으킬 수 있습니다. 그래서 카디널리티가 높은지 확인해보겠습니다.
 
 ```python
 # check for cardinality in categorical variables
@@ -314,19 +275,19 @@ for var in categorical:
     print(var, ' contains ', len(df[var].unique()), ' labels')
 ```
 
-We can see that there is a `Date` variable which needs to be preprocessed. I will do preprocessing in the following section.
+사전 처리가 필요한 '날짜' 변수가 있음을 알 수 있습니다. 저는 다음 섹션에서 전처리를 할 것입니다.
 
 
-All the other variables contain relatively smaller number of variables.
+다른 모든 변수에는 상대적으로 적은 수의 변수가 포함되어 있습니다.
 
-### Feature Engineering of Date Variable
+### 날짜 변수의징특징 엔지니어링
 
 
 ```python
 df['Date'].dtypes
 ```
 
-We can see that the data type of `Date` variable is object. I will parse the date currently coded as object into datetime format.
+Date 변수의 데이터 형식이 object임을 알 수 있습니다. 현재 객체로 코딩된 날짜를 datetime 형식으로 구문 분석하겠습니다.
 
 
 ```python
@@ -368,8 +329,7 @@ df['Day'].head()
 
 df.info()
 ```
-
-We can see that there are three additional columns created from `Date` variable. Now, I will drop the original `Date` variable from the dataset.
+날짜 변수에서 추가로 생성된 열이 세 개 있음을 알 수 있습니다. 이제 데이터 집합에서 원래의 "날짜" 변수를 삭제하겠습니다.
 
 
 ```python
@@ -384,11 +344,10 @@ df.drop('Date', axis=1, inplace = True)
 
 df.head()
 ```
+이제 데이터 집합에서 '날짜' 변수가 제거되었음을 알 수 있습니다.
 
-Now, we can see that the `Date` variable has been removed from the dataset.
 
-
-### Explore Categorical Variables
+### 범주형 변수 탐색
 
 
 Now, I will explore the categorical variables one by one. 
@@ -1938,10 +1897,6 @@ print('GridSearch CV score on test set: {0:0.4f}'.format(grid_search.score(X_tes
 [Table of Contents](#0.1)
 
 
-
-The work done in this project is inspired from following books and websites:-
-
-
 1. Hands on Machine Learning with Scikit-Learn and Tensorflow by Aurélién Géron
 
 2. Introduction to Machine Learning with Python by Andreas C. Müller and Sarah Guido
@@ -1966,14 +1921,3 @@ The work done in this project is inspired from following books and websites:-
 
 12. https://www.ritchieng.com/machine-learning-evaluate-classification-model/
 
-
-So, now we will come to the end of this kernel.
-
-I hope you find this kernel useful and enjoyable.
-
-Your comments and feedback are most welcome.
-
-Thank you
-
-
-[Go to Top](#0)
